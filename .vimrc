@@ -20,6 +20,9 @@ Plugin 'gmarik/Vundle.vim'
 "Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'jaxbot/semantic-highlight.vim.git'
 Plugin 'scrooloose/nerdtree.git'
+Plugin 'scrooloose/syntastic.git'
+Plugin 'vim-scripts/buftabs.git'
+Plugin 'tpope/vim-fugitive.git'
 " git repos on your local machine (i.e. when working on your own plugin)
 "Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -27,7 +30,7 @@ Plugin 'scrooloose/nerdtree.git'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Avoid a name conflict with L9
 "Plugin 'user/L9', {'name': 'newL9'}
-
+Plugin 'yonchu/accelerated-smooth-scroll'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -74,8 +77,8 @@ colorscheme delek
 set noswapfile " no swapfiles
 
 " more tab
-set tabstop=4
-set shiftwidth=4
+set ts=4 sw=4 et
+"set shiftwidth=4
 
 
 inoremap ( ()<Esc>:call BC_AddChar(")")<CR>i
@@ -100,5 +103,18 @@ function! BC_GetChar()
  return l:char
 endfunction
 
-map <F7> :tabp <CR>
-map <F8> :tabn <CR>
+map <F7> :tabp<CR>
+map <F8> :tabn<CR>
+map <F1> :bprev<CR>
+map <F2> :bnext<CR>
+inoremap <F8> {{}}<Esc>:call BC_AddChar("}")<CR>i
+
+" syntastic stuff
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
